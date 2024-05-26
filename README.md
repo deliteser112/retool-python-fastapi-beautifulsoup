@@ -29,10 +29,10 @@ This project is a web application that allows users to scrape real estate listin
 
 2. Frontend Setup:
 
-    Navigate to the `frontend` directory and install dependencies:
+    Navigate to the `retool-app` directory and install dependencies:
 
     ```bash
-    cd frontend
+    cd retool-app
     npm install
     ```
     Create a .env file in the frontend directory with the following content:
@@ -42,10 +42,10 @@ This project is a web application that allows users to scrape real estate listin
 
 3. Backend Setup:
     
-    Navigate to the backend directory and create a virtual environment:
+    Navigate to the `server` directory and create a virtual environment:
 
     ```bash
-    cd backend
+    cd server
     python -m venv venv
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
     ```
