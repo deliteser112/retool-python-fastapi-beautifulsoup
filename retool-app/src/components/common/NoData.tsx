@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 const NoData: React.FC = () => {
   return (
@@ -8,8 +7,7 @@ const NoData: React.FC = () => {
         No Data Found
       </h2>
       <p className="mt-2 text-gray-500">
-        We couldn't find users, to add the users click {' '}
-        <Link href="/users/add" className="underline">here</Link>.
+        We couldn't find any realtors. Please enter the zip code to search for realtors.
       </p>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import NoData from '../common/NoData';
 
 interface ListingsTableProps {
     listings: any[];
@@ -7,7 +7,7 @@ interface ListingsTableProps {
 
 const ListingsTable: React.FC<ListingsTableProps> = ({ listings }) => {
     if (listings.length === 0) {
-        return <div className="text-center text-gray-500">No data available</div>;
+        return <NoData />
     }
 
     return (
@@ -24,18 +24,13 @@ const ListingsTable: React.FC<ListingsTableProps> = ({ listings }) => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                     {listings.map((listing, index) => (
-                        <motion.tr
-                            key={index}
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                        >
+                        <tr key={index}>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{listing.price}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{listing.address}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{listing.beds}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{listing.baths}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{listing.sqft}</td>
-                        </motion.tr>
+                        </tr>
                     ))}
                 </tbody>
             </table>

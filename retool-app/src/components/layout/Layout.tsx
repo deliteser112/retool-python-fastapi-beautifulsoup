@@ -6,7 +6,7 @@ interface LayoutProps {
   title?: string;
 }
 
-const DEFAULT_TITLE = "User | Home";
+const DEFAULT_TITLE = "Retool | Home";
 
 const Layout: React.FC<LayoutProps> = ({ children, title = DEFAULT_TITLE }) => {
   return (
