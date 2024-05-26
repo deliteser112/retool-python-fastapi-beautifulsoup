@@ -23,7 +23,7 @@ const RealtorListings: React.FC = () => {
     setStatus('');
     setCurrentPage(1);
 
-    const eventSource = new EventSource(`http://127.0.0.1:8000/scrape-realtor?zip_code=${zipCode}`);
+    const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_API_URL}/scrape-realtor?zip_code=${zipCode}`);
 
     eventSource.onmessage = (event) => {
       const data = event.data;
