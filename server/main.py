@@ -1,7 +1,7 @@
 import time
 import requests
 from bs4 import BeautifulSoup
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sse_starlette.sse import EventSourceResponse
 import asyncio
@@ -18,7 +18,13 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+cache = {}
+
 async def scrape_listings(zip_code: str):
+    if zip_code in cache:
+        yield {"data": json.dumps({"listings": cache[zip_code]})}
+        return
+
     base_url = f"https://www.realtor.com/realestateandhomes-search/{zip_code}"
     listings = []
     page = 1
@@ -50,10 +56,14 @@ async def scrape_listings(zip_code: str):
         page += 1
         time.sleep(1)  # Add delay between page requests to prevent being blocked
 
+    cache[zip_code] = listings
     yield {"data": json.dumps({"listings": listings})}
 
 @app.get("/scrape-realtor")
 async def scrape_realtor(request: Request, zip_code: str):
+    if not zip_code.isdigit() or len(zip_code) != 5:
+        raise HTTPException(status_code=400, detail="Invalid zip code")
+
     async def event_generator():
         async for event in scrape_listings(zip_code):
             yield event
@@ -64,3 +74,4 @@ async def scrape_realtor(request: Request, zip_code: str):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    
